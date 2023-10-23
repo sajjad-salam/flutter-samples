@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
@@ -133,25 +134,26 @@ class _RiveAppHomeState extends State<RiveAppHome>
       body: Stack(
         children: [
           Positioned(child: Container(color: RiveAppTheme.background2)),
-          RepaintBoundary(
-            child: AnimatedBuilder(
-              animation: _sidebarAnim,
-              builder: (BuildContext context, Widget? child) {
-                return Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..rotateY(((1 - _sidebarAnim.value) * -30) * math.pi / 180)
-                    ..translate((1 - _sidebarAnim.value) * -300),
-                  child: child,
-                );
-              },
-              child: FadeTransition(
-                opacity: _sidebarAnim,
-                child: const SideMenu(),
-              ),
-            ),
-          ),
+          // هذا المحتوى بداخل المنيو بار
+          // RepaintBoundary(
+          //   child: AnimatedBuilder(
+          //     animation: _sidebarAnim,
+          //     builder: (BuildContext context, Widget? child) {
+          //       return Transform(
+          //         alignment: Alignment.center,
+          //         transform: Matrix4.identity()
+          //           ..setEntry(3, 2, 0.001)
+          //           ..rotateY(((1 - _sidebarAnim.value) * -30) * math.pi / 180)
+          //           ..translate((1 - _sidebarAnim.value) * -300),
+          //         child: child,
+          //       );
+          //     },
+          //     child: FadeTransition(
+          //       opacity: _sidebarAnim,
+          //       child: const SideMenu(),
+          //     ),
+          //   ),
+          // ),
           RepaintBoundary(
             child: AnimatedBuilder(
               animation: _showOnBoarding ? _onBoardingAnim : _sidebarAnim,
@@ -176,85 +178,88 @@ class _RiveAppHomeState extends State<RiveAppHome>
               child: _tabBody,
             ),
           ),
-          AnimatedBuilder(
-            animation: _sidebarAnim,
-            builder: (context, child) {
-              return Positioned(
-                top: MediaQuery.of(context).padding.top + 20,
-                right: (_sidebarAnim.value * -100) + 16,
-                child: child!,
-              );
-            },
-            child: GestureDetector(
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: [
-                      BoxShadow(
-                        color: RiveAppTheme.shadow.withOpacity(0.2),
-                        blurRadius: 5,
-                        offset: const Offset(0, 5),
-                      )
-                    ],
-                  ),
-                  child: const Icon(Icons.person_outline),
-                ),
-              ),
-              onTap: () {
-                _presentOnBoarding(true);
-              },
-            ),
-          ),
-          RepaintBoundary(
-            child: AnimatedBuilder(
-              animation: _sidebarAnim,
-              builder: (context, child) {
-                return SafeArea(
-                  child: Row(
-                    children: [
-                      // There's an issue/behaviour in flutter where translating the GestureDetector or any button
-                      // doesn't translate the touch area, making the Widget unclickable, so instead setting a SizedBox
-                      // in a Row to have a similar effect
-                      SizedBox(width: _sidebarAnim.value * 216),
-                      child!,
-                    ],
-                  ),
-                );
-              },
-              child: GestureDetector(
-                onTap: onMenuPress,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Container(
-                    width: 44,
-                    height: 44,
-                    margin: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(44 / 2),
-                      boxShadow: [
-                        BoxShadow(
-                          color: RiveAppTheme.shadow.withOpacity(0.2),
-                          blurRadius: 5,
-                          offset: const Offset(0, 5),
-                        )
-                      ],
-                    ),
-                    child: RiveAnimation.asset(
-                      app_assets.menuButtonRiv,
-                      stateMachines: const ["State Machine"],
-                      animations: const ["open", "close"],
-                      onInit: _onMenuIconInit,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // هاي صفحة الانميشن
+          // AnimatedBuilder(
+          //   animation: _sidebarAnim,
+          //   builder: (context, child) {
+          //     return Positioned(
+          //       top: MediaQuery.of(context).padding.top + 20,
+          //       right: (_sidebarAnim.value * -100) + 16,
+          //       child: child!,
+          //     );
+          //   },
+          //   child: GestureDetector(
+          //     child: MouseRegion(
+          //       cursor: SystemMouseCursors.click,
+          //       child: Container(
+          //         width: 36,
+          //         height: 36,
+          //         decoration: BoxDecoration(
+          //           color: Colors.white,
+          //           borderRadius: BorderRadius.circular(18),
+          //           boxShadow: [
+          //             BoxShadow(
+          //               color: RiveAppTheme.shadow.withOpacity(0.2),
+          //               blurRadius: 5,
+          //               offset: const Offset(0, 5),
+          //             )
+          //           ],
+          //         ),
+          //         child: const Icon(Icons.person_outline),
+          //       ),
+          //     ),
+          //     onTap: () {
+          //       _presentOnBoarding(true);
+          //     },
+          //   ),
+          // ),
+
+          // هاي صفحة المنيو بار
+          // RepaintBoundary(
+          //   child: AnimatedBuilder(
+          //     animation: _sidebarAnim,
+          //     builder: (context, child) {
+          //       return SafeArea(
+          //         child: Row(
+          //           children: [
+          //             // There's an issue/behaviour in flutter where translating the GestureDetector or any button
+          //             // doesn't translate the touch area, making the Widget unclickable, so instead setting a SizedBox
+          //             // in a Row to have a similar effect
+          //             SizedBox(width: _sidebarAnim.value * 216),
+          //             child!,
+          //           ],
+          //         ),
+          //       );
+          //     },
+          //     child: GestureDetector(
+          //       onTap: onMenuPress,
+          //       child: MouseRegion(
+          //         cursor: SystemMouseCursors.click,
+          //         child: Container(
+          //           width: 44,
+          //           height: 44,
+          //           margin: const EdgeInsets.all(16),
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(44 / 2),
+          //             boxShadow: [
+          //               BoxShadow(
+          //                 color: RiveAppTheme.shadow.withOpacity(0.2),
+          //                 blurRadius: 5,
+          //                 offset: const Offset(0, 5),
+          //               )
+          //             ],
+          //           ),
+          //           child: RiveAnimation.asset(
+          //             app_assets.menuButtonRiv,
+          //             stateMachines: const ["State Machine"],
+          //             animations: const ["open", "close"],
+          //             onInit: _onMenuIconInit,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           if (_showOnBoarding)
             RepaintBoundary(
               child: AnimatedBuilder(
@@ -326,33 +331,34 @@ class _RiveAppHomeState extends State<RiveAppHome>
           ),
         ],
       ),
-      bottomNavigationBar: RepaintBoundary(
-        child: AnimatedBuilder(
-          animation: !_showOnBoarding ? _sidebarAnim : _onBoardingAnim,
-          builder: (context, child) {
-            return Transform.translate(
-              offset: Offset(
-                  0,
-                  !_showOnBoarding
-                      ? _sidebarAnim.value * 300
-                      : _onBoardingAnim.value * 200),
-              child: child,
-            );
-          },
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              CustomTabBar(
-                onTabChange: (tabIndex) {
-                  setState(() {
-                    _tabBody = _screens[tabIndex];
-                  });
-                },
-              )
-            ],
-          ),
-        ),
-      ),
+      // النافكيشن هنا
+      // bottomNavigationBar: RepaintBoundary(
+      //   child: AnimatedBuilder(
+      //     animation: !_showOnBoarding ? _sidebarAnim : _onBoardingAnim,
+      //     builder: (context, child) {
+      //       return Transform.translate(
+      //         offset: Offset(
+      //             0,
+      //             !_showOnBoarding
+      //                 ? _sidebarAnim.value * 300
+      //                 : _onBoardingAnim.value * 200),
+      //         child: child,
+      //       );
+      //     },
+      //     child: Stack(
+      //       alignment: Alignment.center,
+      //       children: [
+      //         CustomTabBar(
+      //           onTabChange: (tabIndex) {
+      //             setState(() {
+      //               _tabBody = _screens[tabIndex];
+      //             });
+      //           },
+      //         )
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

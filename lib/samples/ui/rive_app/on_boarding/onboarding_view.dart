@@ -100,7 +100,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
                             width: 260,
                             padding: const EdgeInsets.only(bottom: 16),
                             child: const Text(
-                              "Learn design & code",
+                              "sajjad salam & sajjad majad",
                               style: TextStyle(
                                   fontFamily: "Poppins", fontSize: 60),
                             ),
